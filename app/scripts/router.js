@@ -1,4 +1,5 @@
 import React from 'react'
+import {Text, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import { addNavigationHelpers, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
 import SplashScene from 'scenes/splash'
@@ -27,12 +28,20 @@ export const DashboardNavigator = DrawerNavigator({
 
 }, {
     initialRouteName: 'billing',
-	navigationOptions : {
-		drawerLabel: 'Notifications'
-	},
+	headerMode: 'screen',
+    navigationOptions: ({navigation}) => ({
+        title: 'Main',
+        headerLeft: (
+                        <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+                                      <Text>
+                                                      Open
+                                                                </Text>
+                                                                        </TouchableOpacity>
+        )
+    })
 })
 
-export const OnboardingNavigator = StackNavigator({
+export const RootNavigator = StackNavigator({
 
     splash: {
         screen: SplashScene,
@@ -58,20 +67,6 @@ export const OnboardingNavigator = StackNavigator({
         screen: PaymentMethodsScene,
     },
 
-
-}, {
-    initialRouteName: 'splash',
-})
-
-export const RootNavigator = StackNavigator({
-
-    onboarding: {
-        screen: OnboardingNavigator,
-        navigationOptions: {
-            gesturesEnabled: false,
-        },
-    },
-
     dashboard: {
         screen: DashboardNavigator,
         navigationOptions: {
@@ -80,18 +75,17 @@ export const RootNavigator = StackNavigator({
     },
 
 }, {
-    initialRouteName: 'onboarding',
-    headerMode: 'none',
+    initialRouteName: 'splash',
 })
 
 class App extends React.Component {
-  render() {
-      const {dispatch, nav} = this.props
-    return ( <RootNavigator navigation={addNavigationHelpers({
-                                                dispatch: dispatch,
-                                                state: nav,
-    })} />)
-  }
+    render() {
+        const {dispatch, nav} = this.props
+        return ( <RootNavigator navigation={addNavigationHelpers({
+            dispatch: dispatch,
+            state: nav,
+        })} />)
+    }
 }
 
 const mapStateToProps = (store) => ({

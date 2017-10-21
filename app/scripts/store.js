@@ -9,7 +9,6 @@ const middleware = applyMiddleware(ReduxThunk, promise(), logger())
 const reducers = combineReducers({
 
     rootRouter,
-    onboardingRouter,
     dashboardRouter,
 
 })

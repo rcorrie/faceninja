@@ -8,18 +8,6 @@ export const rootRouter = (state, action) => {
 
 }
 
-export const onboardingRouter = (state, action) => {
-
-    let newState = state || {}
-
-    if(OnboardingNavigator) {
-        newState = OnboardingNavigator.router.getStateForAction(action, state)
-    }
-
-    return newState 
-
-}
-
 export const dashboardRouter = (state, action) => {
 
     let newState = state || {}
